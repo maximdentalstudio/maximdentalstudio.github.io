@@ -786,5 +786,22 @@
       <p>Телефон: <a href="tel:+79803617809">+7 (977) 414-40-07</a> · Москва</p>
     </div>
   </footer>
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const id = link.getAttribute('href').substring(1);
+      const target = document.getElementById(id);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+        // убираем #из адресной строки
+        history.replaceState(null, '', window.location.pathname);
+      }
+    });
+  });
+});
+</script>
+
 </body>
 </html>
