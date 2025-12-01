@@ -365,22 +365,51 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 })();
 
+// ===== Показать ещё работы (6 + 6) =====
+(function () {
+  const section   = document.getElementById('works');
+  if (!section) return;
+
+  const btn       = document.getElementById('worksMoreBtn');
+  const extras    = section.querySelectorAll('.work-card--extra');
+  const firstCard = section.querySelector('.work-card');
+
+  if (!btn || !extras.length || !firstCard) return;
+
+  btn.addEventListener('click', () => {
+    const expanded = section.classList.toggle('works--expanded');
+
+    btn.textContent = expanded
+      ? 'Скрыть часть работ'
+      : 'Показать ещё работы';
+
+    // ВСЕГДА после клика возвращаемся к началу первых 6 фото
+    firstCard.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  });
+})();
+
 // ===== Видео-отзывы: проигрываем прямо в карточке =====
 (function () {
-  const cards = document.querySelectorAll('.reviews-video-card');
+  // берём только карточки, у которых есть data-video (то есть видео)
+  const cards = document.querySelectorAll('.reviews-video-card[data-video]');
   if (!cards.length) return;
 
   // Останавливаем все видео и возвращаем превью
   function stopAll() {
     cards.forEach(card => {
-      const inner = card.querySelector('.reviews-video-card__inner');
-      const img = inner.querySelector('img');
-      const btn = inner.querySelector('.reviews-video-card__play');
+      const inner  = card.querySelector('.reviews-video-card__inner');
+      if (!inner) return;
+
+      const img    = inner.querySelector('img');
+      const btn    = inner.querySelector('.reviews-video-card__play');
       const iframe = inner.querySelector('iframe');
 
       if (iframe) iframe.remove();
-      if (img) img.style.display = '';
-      if (btn) btn.style.display = '';
+      if (img)   img.style.display = '';
+      if (btn)   btn.style.display = '';
       card.removeAttribute('data-playing');
     });
   }
@@ -388,18 +417,22 @@ document.addEventListener('DOMContentLoaded', function(){
   // Запускаем видео в конкретной карточке
   function play(card) {
     const inner = card.querySelector('.reviews-video-card__inner');
-    const img = inner.querySelector('img');
-    const btn = inner.querySelector('.reviews-video-card__play');
-    const baseUrl = card.dataset.video;
-    if (!baseUrl) return;
+    if (!inner) return;
 
-    // Остановить все остальные
+    const img  = inner.querySelector('img');
+    const btn  = inner.querySelector('.reviews-video-card__play');
+    const base = card.dataset.video;
+
+    // если вдруг нет ссылки или это фото — выходим
+    if (!base) return;
+
+    // остановить остальные
     stopAll();
 
     const iframe = document.createElement('iframe');
-    const autoplayUrl = baseUrl.includes('?')
-      ? baseUrl + '&autoplay=1'
-      : baseUrl + '?autoplay=1';
+    const autoplayUrl = base.includes('?')
+      ? base + '&autoplay=1'
+      : base + '?autoplay=1';
 
     iframe.src = autoplayUrl;
     iframe.allow = 'autoplay; encrypted-media';
@@ -415,15 +448,84 @@ document.addEventListener('DOMContentLoaded', function(){
   // Вешаем обработчики на каждую карточку
   cards.forEach(card => {
     const inner = card.querySelector('.reviews-video-card__inner');
+    if (!inner) return;
+
     const btn = inner.querySelector('.reviews-video-card__play');
 
     // клик по всей карточке
     inner.addEventListener('click', () => play(card));
 
-    // клик по кнопке play (чтобы не всплывал лишний event)
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      play(card);
-    });
+    // клик по кнопке play (если она есть)
+    if (btn) {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        play(card);
+      });
+    }
+  });
+})();
+
+// ===== Модалка для фото-отзывов (стрелки + крестик) =====
+(function () {
+  // Все фото-отзывы (без data-video, с классом --photo)
+  const thumbs = Array.from(
+    document.querySelectorAll(
+      '#reviews .reviews-video-card--photo .reviews-video-card__inner img'
+    )
+  );
+  if (!thumbs.length) return;
+
+  const modal    = document.getElementById('reviewsModal');
+  if (!modal) return;
+
+  const modalImg = document.getElementById('reviewsModalImg');
+  const btnPrev  = modal.querySelector('.prev');
+  const btnNext  = modal.querySelector('.next');
+  const btnClose = modal.querySelector('.close');
+
+  let currentIndex = 0;
+
+  function openModal(index) {
+    currentIndex = index;
+    modalImg.src = thumbs[currentIndex].src;
+    modal.style.display = 'flex';
+  }
+
+  function closeModal() {
+    modal.style.display = 'none';
+  }
+
+  function showPrev() {
+    currentIndex = (currentIndex - 1 + thumbs.length) % thumbs.length;
+    modalImg.src = thumbs[currentIndex].src;
+  }
+
+  function showNext() {
+    currentIndex = (currentIndex + 1) % thumbs.length;
+    modalImg.src = thumbs[currentIndex].src;
+  }
+
+  // клики по превью
+  thumbs.forEach((img, i) => {
+    img.style.cursor = 'pointer';
+    img.addEventListener('click', () => openModal(i));
+  });
+
+  // кнопки
+  btnClose?.addEventListener('click', closeModal);
+  btnPrev?.addEventListener('click', showPrev);
+  btnNext?.addEventListener('click', showNext);
+
+  // клик по тёмному фону
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  // Esc / стрелки на клавиатуре
+  document.addEventListener('keydown', (e) => {
+    if (modal.style.display !== 'flex' && modal.style.display !== 'block') return;
+    if (e.key === 'Escape')      closeModal();
+    if (e.key === 'ArrowLeft')   showPrev();
+    if (e.key === 'ArrowRight')  showNext();
   });
 })();

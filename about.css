@@ -214,50 +214,54 @@
   text-align: center;
 }
 
-/* Крестик */
+
+/* ===== Кнопка закрытия (без круга) ===== */
 .diploma-lightbox__close {
   position: absolute;
-  top: 10px;
-  right: 16px;
+  top: 18px;
+  right: 22px;
+  background: none;
   border: none;
-  background: rgba(17, 24, 39, 0.72);
-  color: #fff;
-  width: 32px;
-  height: 32px;
-  border-radius: 999px;
+  color: #ff8a00;
+  font-size: 34px;
   cursor: pointer;
-  font-size: 22px;
-  line-height: 0;
-  display: grid;
-  place-items: center;
+  padding: 4px;
+  line-height: 1;
+  transition: opacity .2s ease;
 }
 
-/* Стрелки */
+.diploma-lightbox__close:hover {
+  opacity: 0.7;
+}
+
+
+/* ===== Стрелки (стрелочки без фона) ===== */
 .diploma-lightbox__arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+  background: none;
   border: none;
-  background: rgba(17, 24, 39, 0.72);
-  color: #fff;
-  width: 40px;
-  height: 40px;
-  border-radius: 999px;
+  color: #ff8a00;
+  font-size: 42px;
   cursor: pointer;
-  font-size: 22px;
-  line-height: 0;
-  display: grid;
-  place-items: center;
+  padding: 6px;
+  line-height: 1;
+  transition: opacity .2s ease;
+}
+
+.diploma-lightbox__arrow:hover {
+  opacity: 0.7;
 }
 
 .diploma-lightbox__arrow--prev {
-  left: 8px;
-}
-.diploma-lightbox__arrow--next {
-  right: 8px;
+  left: 1px;
 }
 
-/* ===== Адаптив для дипломов ===== */
+.diploma-lightbox__arrow--next {
+  right: 1px;
+}
+
 
 @media (max-width: 992px) {
   .diploma-grid {
@@ -312,3 +316,126 @@
 .burger.is-open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
 .burger.is-open span:nth-child(2){ opacity:0; }
 .burger.is-open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+/* ===== Лайтбокс отзывов (фото + видео) ===== */
+.reviews-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.reviews-lightbox.is-open {
+  display: flex;
+}
+
+.reviews-lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(4px);
+}
+
+.reviews-lightbox__dialog {
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reviews-lightbox__figure {
+  margin: 0;
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  padding: 12px 12px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.reviews-lightbox__media {
+  max-width: min(92vw, 920px);
+  max-height: 72vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reviews-lightbox__media img,
+.reviews-lightbox__media iframe {
+  max-width: 100%;
+  max-height: 72vh;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border: 0;
+}
+
+.reviews-lightbox__caption {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #111827;
+  text-align: center;
+}
+
+/* крестик и стрелки */
+.reviews-lightbox__close,
+.reviews-lightbox__arrow {
+  position: absolute;
+  border: none;
+  background: rgba(17, 24, 39, 0.85);
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 0;
+  display: grid;
+  place-items: center;
+}
+
+.reviews-lightbox__close {
+  top: 10px;
+  right: 16px;
+}
+
+.reviews-lightbox__arrow--prev {
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.reviews-lightbox__arrow--next {
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@media (max-width: 600px) {
+  .reviews-lightbox__arrow {
+    width: 34px;
+    height: 34px;
+    font-size: 18px;
+  }
+
+  .reviews-lightbox__close {
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+  }
+}
+@media (max-width: 400px) {
+  .about-hero__list li {
+      margin-left: -40px;
+  }
+}

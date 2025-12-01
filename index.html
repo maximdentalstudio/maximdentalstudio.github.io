@@ -18,65 +18,58 @@
   
 </head>
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  // 1. Если страница уже открыта с якорем (index.html#prices) —
-  //    скроллим к блоку и сразу убираем # из адреса
-  if (window.location.hash) {
-    const id = window.location.hash.substring(1);
-    const target = document.getElementById(id);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-      history.replaceState(null, '', window.location.pathname);
-    }
-  }
-
-  // 2. Перехватываем клики по ссылкам с #
-  document.querySelectorAll('a[href*="#"]').forEach(link => {
-    link.addEventListener('click', e => {
-      const href = link.getAttribute('href');
-      const [path, hash] = href.split('#');
-
-      if (!hash) return;
-
-      // текущий файл страницы (index.html / about.html и т.п.)
-      const current = window.location.pathname.split('/').pop() || 'index.html';
-
-      // если ссылка ведет на ЭТУ ЖЕ страницу (path пустой или index.html) —
-      // не перегружаем страницу, а просто скроллим и чистим URL
-      if (path === '' || path === current) {
-        e.preventDefault();
-        const target = document.getElementById(hash);
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth' });
-          history.replaceState(null, '', window.location.pathname);
-        }
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1. Если страница уже открыта с якорем (index.html#prices) —
+    //    скроллим к блоку и сразу убираем # из адреса
+    if (window.location.hash) {
+      const id = window.location.hash.substring(1);
+      const target = document.getElementById(id);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+        history.replaceState(null, '', window.location.pathname);
       }
+    }
+  
+    // 2. Перехватываем клики по ссылкам с #
+    document.querySelectorAll('a[href*="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        const href = link.getAttribute('href');
+        const [path, hash] = href.split('#');
+  
+        if (!hash) return;
+  
+        // текущий файл страницы (index.html / about.html и т.п.)
+        const current = window.location.pathname.split('/').pop() || 'index.html';
+  
+        // если ссылка ведет на ЭТУ ЖЕ страницу (path пустой или index.html) —
+        // не перегружаем страницу, а просто скроллим и чистим URL
+        if (path === '' || path === current) {
+          e.preventDefault();
+          const target = document.getElementById(hash);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+            history.replaceState(null, '', window.location.pathname);
+          }
+        }
+      });
     });
   });
-});
-</script>
-
+  </script>
+  
 <body>
+
   
   <script>
-    // тень/бордер при скролле
-    (function(){
+    document.addEventListener('DOMContentLoaded', () => {
       const header = document.querySelector('.site-header');
+      if (!header) return;
+  
       const toggle = () => header.classList.toggle('is-scrolled', window.scrollY > 4);
-      toggle(); window.addEventListener('scroll', toggle, {passive:true});
-    })();
-    
-    // бургер-меню
-    (function(){
-      const nav = document.querySelector('.main-nav');
-      const btn = document.querySelector('.burger');
-      if(!nav || !btn) return;
-      btn.addEventListener('click', ()=>{
-        btn.classList.toggle('is-open');
-        nav.classList.toggle('is-open');
-      });
-    })();
-    </script>
+      toggle();
+      window.addEventListener('scroll', toggle, { passive: true });
+    });
+  </script>
+  
     
 
   <!-- HEADER -->
@@ -105,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <li><a href="#works" class="nav-link">Мои работы</a></li>
           <li><a href="#reviews" class="nav-link">Отзывы</a></li>
           <li><a href="#map-section" class="nav-link">Как пройти</a></li>
-          <a href="tel:+79991234567" class="nav-cta"> +7 (977) 414-40-07</a>
+         
         </ul>
        
       </nav>
@@ -169,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </h2>
   
         <p class="about-hero__lead">
-          10+ лет частной практики. Современные материалы,  понятные объяснения и аккуратная эстетика.
+          7+ лет частной практики. Современные материалы,  понятные объяснения и аккуратная эстетика.
         </p>
   
         <ul class="about-hero__list">
@@ -213,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <li>Лечение пришеечного кариеса -  <span class="ps-cost">5&nbsp;000 <i>₽</i></span></li>
                 <li>Лечение клиновидного дефекта -  <span class="ps-cost">5&nbsp;000 <i>₽</i></span></li>
                 <li>Лечение кариеса + клиновидный дефект - <span class="ps-cost">8&nbsp;000 <i>₽</i></span></li>
-                <li>Лечение пульпита за 4 канал  —  <span class="ps-cost">17&nbsp;500 <i>₽</i></span></li>
+               
               </ul>
             </details>
           </li>
@@ -229,6 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <li>Лечение пульпита за 1 канал  —  <span class="ps-cost">10&nbsp;000 <i>₽</i></span></li>
                 <li>Лечение пульпита за 2 канал  —  <span class="ps-cost">12&nbsp;500 <i>₽</i></span></li>
                 <li>Лечение пульпита за 3 канал  —  <span class="ps-cost">15&nbsp;000 <i>₽</i></span></li>
+                <li>Лечение пульпита за 4 канал  —  <span class="ps-cost">17&nbsp;500 <i>₽</i></span></li>
                 <li>Наложение лечебной прокладки -  <span class="ps-cost">&nbsp;500 <i>₽</i></span></li>
 
                 
@@ -246,7 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <ul class="ps-sublist">
                 <li>Световая пломба —  <span class="ps-cost">4&nbsp;000 <i>₽</i></span></li>
                 <li>Композит повышенной эстетики —  <span class="ps-cost">5&nbsp;000 <i>₽</i></span></li>
-                <li>Детская пломба —  <span class="ps-cost">3&nbsp;000 <i>₽</i></span></li>
+                <li>Детская пломба —  <span class="ps-cost">4&nbsp;000 <i>₽</i></span></li>
                 
               </ul>
             </details>
@@ -258,22 +252,39 @@ document.addEventListener('DOMContentLoaded', () => {
 <!-- ортопедия -->
 
       <article class="ps-card">
-        <h3 class="ps-card__title">ОРТОПЕДИЯ</h3>
+        <h3 class="ps-card__title">Ортопедия</h3>
         <ul class="ps-list">
           <li class="ps-item ps-item--more">
             <details class="ps-acc">
               <summary>
                 
-                <span class="ps-name">Виниры керамические - 27000  <span class="ps-badge">от</span></span>
+                <span class="ps-name">Кокронки и вкладки <span class="ps-badge">от</span></span>
                 
-                <span class="ps-cost">27&nbsp;000 <i>₽</i></span>
+                <span class="ps-cost">8&nbsp;000 <i>₽</i></span>
                
               </summary>
           
               <ul class="ps-sublist">
-                <li>Поверхностный — 6&nbsp;000 ₽</li>
-                <li>Средний — 7&nbsp;000 ₽</li>
-                <li>Глубокий — 7&nbsp;000 ₽</li>
+                <p><strong>Постоянные коронки</strong></p>
+                <li>Коронка из диоксида циркония —  <span class="ps-cost">25&nbsp;000 <i>₽</i></span></li>
+                <li>Цельнокерамическая коронка E-max —  <span class="ps-cost">25&nbsp;000 <i>₽</i></span></li>
+                <li>Металлокерамическая коронка —  <span class="ps-cost">20&nbsp;000 <i>₽</i></span></li>
+
+                <p><strong>Коронки на имплантатах</strong></p>
+                <li>Коронка из диоксида циркония на имплантате —  <span class="ps-cost">30&nbsp;000 <i>₽</i></span></li>
+                <li>Металлокерамическая коронка на имплантате —  <span class="ps-cost">27&nbsp;000 <i>₽</i></span></li>
+
+                <p><strong>Вкладки и подготовка</strong></p>
+                <li>Вкладка культтевая —  <span class="ps-cost">10&nbsp;000 <i>₽</i></span></li>
+                <li>Bull-up —  <span class="ps-cost">8&nbsp;000 <i>₽</i></span></li>
+
+                <p><strong>Временные конструкции</strong></p>
+                <li>Временная коронка (прямой метод) —  <span class="ps-cost">2&nbsp;000 <i>₽</i></span></li>
+                <li>Временная коронка (лабораторная) —  <span class="ps-cost">7&nbsp;000 <i>₽</i></span></li>
+                <li>Временная коронка на имплантате —  <span class="ps-cost">12&nbsp;000 <i>₽</i></span></li>
+
+
+
               </ul>
             </details>
           </li>
@@ -281,20 +292,12 @@ document.addEventListener('DOMContentLoaded', () => {
           <li class="ps-item ps-item--more">
             <details class="ps-acc">
               <summary>
-                <span class="ps-name">Протезы <span class="ps-tag">хит</span></span>
+                <span class="ps-name">Виниры <span class="ps-tag">хит</span></span>
                 <span class="ps-cost">10&nbsp;000 <i>₽</i></span>
               </summary>
           
               <ul class="ps-sublist">
-                <li>Частичный съемный акриловый протез   — 35&nbsp;000 ₽</li>
-                <li>Нейлоновый частичный съемный протез - 45&nbsp;000 ₽</li>
-                <li>Толный съемный акриловый протез - 45&nbsp;000 ₽</li>
-                <li>Нейлоновый полный съемный протез - 50&nbsp;000 ₽</li>
-                <li>Бюгельный протез - 70&nbsp;000 ₽</li>
-                <li>Иммедиат протез(бабочка) - 10&nbsp;000 ₽</li>
-                <li>Починка съемного протеза - 10&nbsp;000 ₽</li>
-                <li>Приварка зуба к съемному протезу - 10000 (до трех зубов)
-                  (+ 2000 от трех зубов)&nbsp;000 ₽</li>
+                <li>Виниры керамические  <span class="ps-cost">27&nbsp;000 <i>₽</i></span></li>
               </ul>
             </details>
           </li>
@@ -302,14 +305,25 @@ document.addEventListener('DOMContentLoaded', () => {
           <li class="ps-item ps-item--more">
             <details class="ps-acc">
               <summary>
-                <span class="ps-name">Пломбирование кариеса</span>
-                <span class="ps-cost">4&nbsp;000 <i>₽</i></span>
+                <span class="ps-name">Сьемные протезы</span>
+                <span class="ps-cost">10&nbsp;000 <i>₽</i></span>
               </summary>
           
               <ul class="ps-sublist">
-                <li>Световая пломба — 4&nbsp;000 ₽</li>
-                <li>Композит повышенной эстетики — 5&nbsp;000 ₽</li>
-                <li>Детская пломба — 3&nbsp;000 ₽</li>
+                <p><strong>Акриловые протезы</strong></p>
+                <li>Частичный акриловый протез —  <span class="ps-cost">35&nbsp;000 <i>₽</i></span></li>
+                <li>Полный акриловый протез —  <span class="ps-cost">45&nbsp;000 <i>₽</i></span></li>
+                
+                <p><strong>Нейлоновые протезы</strong></p>
+                <li>Частичный нейлоновый протез —  <span class="ps-cost">45&nbsp;000 <i>₽</i></span></li>
+                <li>Полный нейлоновый протез —  <span class="ps-cost">50&nbsp;000 <i>₽</i></span></li>
+           
+                <p><strong>Другие виды протезов и услуги</strong></p>
+                <li>Бюгельный протез —  <span class="ps-cost">70&nbsp;000 <i>₽</i></span></li>
+                <li>Иммедиат-протез (бабочка) —  <span class="ps-cost">10&nbsp;000 <i>₽</i></span></li>
+                <li>Починка съёмного протеза —  <span class="ps-cost">10&nbsp;000 <i>₽</i></span></li>
+                <li>Приварка зуба к съёмному протезу —  <span class="ps-cost">10&nbsp;000 <i>₽</i></span></li>
+                <li>доп. зубы за каждый (от трёх) —  <span class="ps-cost">2&nbsp;000 <i>₽</i></span></li>
               </ul>
             </details>
           </li>
@@ -317,28 +331,27 @@ document.addEventListener('DOMContentLoaded', () => {
       </article>
   
       <article class="ps-card">
-        <h3 class="ps-card__title">Другие услуги
-        </h3>
+        <h3 class="ps-card__title">Другие услуги</h3>
         <ul class="ps-list">
           <li class="ps-item ps-item--more">
             <details class="ps-acc">
               <summary>
                 
-                <span class="ps-name">Отбеливание зубов  <span class="ps-badge">от</span></span>
+                <span class="ps-name">Отбеливание зубов <span class="ps-badge">от</span></span>
                 
-                <span class="ps-cost">6&nbsp;000 <i>₽</i></span>
+                <span class="ps-cost">5&nbsp;000 <i>₽</i></span>
                
               </summary>
           
               <ul class="ps-sublist">
                 <li>Профессиональное отбеливание эмали зубов с использованием
-                  системы последнего поколения ZOOM 4 - 40&nbsp;000 ₽</li>
+                  системы последнего поколения ZOOM 4 - <span class="ps-cost">40&nbsp;000 <i>₽</i></span></li>
                 <li>Курс домашнего отбеливания + изготовление индивидуальных
                   капп (2 шт)
-                  5&nbsp;000 ₽</li>
+                  <span class="ps-cost">5&nbsp;000 <i>₽</i></span></li>
                 <li>Комплекс:
                   Профессиональная гигиена полости рта + отбеливание зубов
-                  ZOOM 4 - 44&nbsp;000 ₽</li>
+                  ZOOM 4 - <span class="ps-cost">44&nbsp;000 <i>₽</i></span></li>
               </ul>
             </details>
           </li>
@@ -347,88 +360,75 @@ document.addEventListener('DOMContentLoaded', () => {
             <details class="ps-acc">
               <summary>
                 <span class="ps-name">Профессиональная гигиена <span class="ps-tag">хит</span></span>
-                <span class="ps-cost">10&nbsp;000 <i>₽</i></span>
+                <span class="ps-cost">5&nbsp;000 <i>₽</i></span>
               </summary>
           
               <ul class="ps-sublist">
                 <li>Комплексная профессиональная профилактическая гигиена полости
                   рта (окрашивание налёта, ультразвук, Air-Flow, полировка,
-                  реминерализирующая терапия) - 5&nbsp;000 ₽</li>
-                
+                  реминерализирующая терапия) <span class="ps-cost">5&nbsp;000 <i>₽</i></span></li>
+          
               </ul>
             </details>
           </li>
-          
-          <li class="ps-item ps-item--more">
-            <details class="ps-acc">
-              <summary>
-                <span class="ps-name">Пломбирование кариеса</span>
-                <span class="ps-cost">4&nbsp;000 <i>₽</i></span>
-              </summary>
-          
-              <ul class="ps-sublist">
-                <li>Световая пломба — 4&nbsp;000 ₽ <span class="ps-cost">4&nbsp;000 <i>₽</i></span></li>
-                <li>Композит повышенной эстетики — 5&nbsp;000 ₽</li>
-                <li>Детская пломба — 3&nbsp;000 ₽</li>
-              </ul>
-            </details>
-          </li>
+        
         </ul>
       </article>
-  
+
+      
       <article class="ps-card">
-        <h3 class="ps-card__title">Терапия</h3>
+        
+        <h3 class="ps-card__title">Другие услуги
+        </h3>
         <ul class="ps-list">
-          <li class="ps-item ps-item--more">
-            <details class="ps-acc">
-              <summary>
+          <li class="ps-item ps-item--more ps-item--no-plus">
+         
+              <summary> 
                 
-                <span class="ps-name">Лечение кариеса  <span class="ps-badge">от</span></span>
+                <span class="ps-name">Установка ретейнера (1 челюсть)  
+                  <span class="ps-badge">от</span></span>
                 
-                <span class="ps-cost">6&nbsp;000 <i>₽</i></span>
+                <span class="ps-cost">7&nbsp;000 <i>₽</i></span>
                
               </summary>
           
-              <ul class="ps-sublist">
-                <li>Поверхностный — 6&nbsp;000 ₽</li>
-                <li>Средний — 7&nbsp;000 ₽</li>
-                <li>Глубокий — 7&nbsp;000 ₽</li>
-              </ul>
-            </details>
+       
+          
           </li>
           
-          <li class="ps-item ps-item--more">
-            <details class="ps-acc">
+          <li class="ps-item ps-item--more ps-item--no-plus">
+
+          
               <summary>
-                <span class="ps-name">Лечение пульпита <span class="ps-tag">хит</span></span>
-                <span class="ps-cost">10&nbsp;000 <i>₽</i></span>
+                <span class="ps-name">Снятие ретейнера (1 челюсть)   <span class="ps-tag">хит</span></span>
+                <span class="ps-cost">5&nbsp;000 <i>₽</i></span>
               </summary>
           
-              <ul class="ps-sublist">
-                <li>Лечение пульпита за 1 канал  — 10&nbsp;000 ₽</li>
-                <li>Лечение пульпита за 2 канал  — 12&nbsp;500 ₽</li>
-                <li>Лечение пульпита за 3 канал  — 15&nbsp;000 ₽</li>
-                <li>Лечение пульпита за 4 канал  — 17&nbsp;500 ₽</li>
-              </ul>
-            </details>
+             
+                
+             
+          
           </li>
           
-          <li class="ps-item ps-item--more">
-            <details class="ps-acc">
+          <li class="ps-item ps-item--more ps-item--no-plus">
+
+          
               <summary>
-                <span class="ps-name">Пломбирование кариеса</span>
-                <span class="ps-cost">4&nbsp;000 <i>₽</i></span>
+                <span class="ps-name">Изготовление индивидуальной каппы при бруксизме
+                  (1 челюсть) </span>
+                <span class="ps-cost">8&nbsp;000 <i>₽</i></span>
               </summary>
           
-              <ul class="ps-sublist">
-                <li>Световая пломба — 4&nbsp;000 ₽</li>
-                <li>Композит повышенной эстетики — 5&nbsp;000 ₽</li>
-                <li>Детская пломба — 3&nbsp;000 ₽</li>
-              </ul>
-            </details>
+         
+           
           </li>
         </ul>
       </article>
+
+
+      
+  
+   
   
   
   
@@ -442,7 +442,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
       <div class="works__head">
         <h2>Мои работы</h2>
-        <p>Несколько примеров лечения до и после</p>
+
       </div>
   
       <div class="works-grid">
@@ -454,7 +454,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="work-pill work-pill--bottom">после</span>
           </div>
           <div class="work-card__meta">
-            <h3>Отбеливание зубов</h3>
+
           </div>
         </article>
   
@@ -465,7 +465,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="work-pill work-pill--bottom">после</span>
           </div>
           <div class="work-card__meta">
-            <h3>Отбеливание зубов</h3>
+
           </div>
         </article>
   
@@ -476,7 +476,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="work-pill work-pill--bottom">после</span>
           </div>
           <div class="work-card__meta">
-            <h3>Отбеливание зубов</h3>
+
           </div>
         </article>
   
@@ -487,7 +487,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="work-pill work-pill--bottom">после</span>
           </div>
           <div class="work-card__meta">
-            <h3>Отбеливание зубов</h3>
+
           </div>
         </article>
   
@@ -498,7 +498,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="work-pill work-pill--bottom">после</span>
           </div>
           <div class="work-card__meta">
-            <h3>Отбеливание зубов</h3>
+
           </div>
         </article>
   
@@ -509,7 +509,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="work-pill work-pill--bottom">после</span>
           </div>
           <div class="work-card__meta">
-            <h3>Отбеливание зубов</h3>
+
           </div>
         </article>
   
@@ -521,7 +521,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="work-pill work-pill--bottom">после</span>
           </div>
           <div class="work-card__meta">
-            <h3>Эстетическая реставрация</h3>
+
           </div>
         </article>
   
@@ -532,7 +532,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="work-pill work-pill--bottom">после</span>
           </div>
           <div class="work-card__meta">
-            <h3>Эстетическая реставрация</h3>
+
           </div>
         </article>
   
@@ -543,7 +543,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="work-pill work-pill--bottom">после</span>
           </div>
           <div class="work-card__meta">
-            <h3>Виниры</h3>
+       
           </div>
         </article>
   
@@ -554,7 +554,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="work-pill work-pill--bottom">после</span>
           </div>
           <div class="work-card__meta">
-            <h3>Виниры</h3>
+          
           </div>
         </article>
   
@@ -565,7 +565,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="work-pill work-pill--bottom">после</span>
           </div>
           <div class="work-card__meta">
-            <h3>Реставрация передних зубов</h3>
+            
           </div>
         </article>
   
@@ -576,18 +576,18 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="work-pill work-pill--bottom">после</span>
           </div>
           <div class="work-card__meta">
-            <h3>Реставрация передних зубов</h3>
+           
           </div>
         </article>
       </div>
   
-      <button class="works-more-btn" id="worksMoreBtn">
-        Показать ещё работы
-      </button>
+
   
-    </div>
-  </section>
-  
+
+
+
+
+      
   
   
 
@@ -597,7 +597,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <!-- верх: обычные отзывы -->
       <div class="reviews__head">
         <h2>Отзывы пациентов</h2>
-        <p>Небольшая часть отзывов о лечении, реставрации и отбеливании.</p>
+
       </div>
   
   
@@ -607,20 +607,56 @@ document.addEventListener('DOMContentLoaded', () => {
         <!-- ВИДЕО -->
         <article class="reviews-video-card" data-video="https://rutube.ru/play/embed/https://rutube.ru/video/private/e15e17979a53863be9e6ce6248872dd6/?p=Zd15_lKH7mIYUUmXaq21-Q">
           <div class="reviews-video-card__inner">
-            <img src="/images/maxim.jpg" alt="">
+            <img src="/images//card1.jpg" alt="">
             <span class="reviews-video-card__label reviews-video-card__label--video">Видео</span>
             <button class="reviews-video-card__play" type="button">▶</button>
           </div>
-          <p class="reviews-video-card__caption">Анастасия — реставрация и отбеливание</p>
+        
         </article>
       
-        <article class="reviews-video-card" data-video="https://rutube.ru/play/embed/https://rutube.ru/shorts/df4f20733d68c1ba847c3725e9b031a8/">
+        <article class="reviews-video-card" data-video="https://rutube.ru/play/embed//https://rutube.ru/video/private/234ecb43ac5a850c9d7847fa5e0f1133/?p=OIfK7-3DhSrCtbETS9OBHA">
           <div class="reviews-video-card__inner">
-            <img src="/images//maxim.jpg" alt="">
+            <img src="/images//card2.jpg" alt="">
             <span class="reviews-video-card__label reviews-video-card__label--video">Видео</span>
             <button class="reviews-video-card__play" type="button">▶</button>
           </div>
-          <p class="reviews-video-card__caption">Максим — имплантация и протезирование</p>
+        
+        </article>
+
+        <article class="reviews-video-card" data-video="https://rutube.ru/play/embed//https://rutube.ru/video/private/1252bad4db5b638fb43d4e742954f5c1/?p=Bl956vcC8t3hAKUMvaTjyQ">
+          <div class="reviews-video-card__inner">
+            <img src="/images/card3.jpg" alt="">
+            <span class="reviews-video-card__label reviews-video-card__label--video">Видео</span>
+            <button class="reviews-video-card__play" type="button">▶</button>
+          </div>
+         
+        </article>
+
+        <article class="reviews-video-card" data-video="https://rutube.ru/play/embed//https://rutube.ru/video/private/7814d0c9b4e99a82aa584b924a785ce6/?p=gsD__-rZtJHRbQvFG9J98w">
+          <div class="reviews-video-card__inner">
+            <img src="/images//card4.jpg" alt="">
+            <span class="reviews-video-card__label reviews-video-card__label--video">Видео</span>
+            <button class="reviews-video-card__play" type="button">▶</button>
+          </div>
+         
+        </article>
+
+        <article class="reviews-video-card" data-video="https://rutube.ru/play/embed//https://https://rutube.ru/video/private/ab71300c522b8e79f2294cb71fe39418/?p=Jxn3jDI1p2u9edIqn5FZ7w">
+          <div class="reviews-video-card__inner">
+            <img src="/images//card5.jpg" alt="">
+            <span class="reviews-video-card__label reviews-video-card__label--video">Видео</span>
+            <button class="reviews-video-card__play" type="button">▶</button>
+          </div>
+       
+        </article>
+
+        <article class="reviews-video-card" data-video="https://rutube.ru/play/embed//https://https://rutube.ru/video/private/ce3901179bf7aded4f9866bd02c77e03/?p=NaEPrMIZYEtOFWchUIi8_A">
+          <div class="reviews-video-card__inner">
+            <img src="/images/card6.jpg" alt="">
+            <span class="reviews-video-card__label reviews-video-card__label--video">Видео</span>
+            <button class="reviews-video-card__play" type="button">▶</button>
+          </div>
+     
         </article>
       
         <!-- ФОТО-ОТЗЫВ -->
@@ -630,7 +666,62 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="reviews-video-card__label reviews-video-card__label--photo">Фото</span>
             <!-- без кнопки ▶ и без data-video -->
           </div>
-          <p class="reviews-video-card__caption">Мария — результат после комплексного лечения</p>
+   
+        </article>
+
+        <article class="reviews-video-card reviews-video-card--photo">
+          <div class="reviews-video-card__inner">
+            <img src="/images/otziv1.jpg" alt="">
+            <span class="reviews-video-card__label reviews-video-card__label--photo">Фото</span>
+            <!-- без кнопки ▶ и без data-video -->
+          </div>
+      
+        </article>
+
+        <article class="reviews-video-card reviews-video-card--photo">
+          <div class="reviews-video-card__inner">
+            <img src="/images/otziv2.jpg" alt="">
+            <span class="reviews-video-card__label reviews-video-card__label--photo">Фото</span>
+            <!-- без кнопки ▶ и без data-video -->
+          </div>
+         
+        </article>
+
+        <article class="reviews-video-card reviews-video-card--photo">
+          <div class="reviews-video-card__inner">
+            <img src="/images/otziv3.jpg" alt="">
+            <span class="reviews-video-card__label reviews-video-card__label--photo">Фото</span>
+            <!-- без кнопки ▶ и без data-video -->
+          </div>
+    
+        </article>
+
+        <article class="reviews-video-card reviews-video-card--photo">
+          <div class="reviews-video-card__inner">
+            <img src="/images/otziv4.jpg" alt="">
+            <span class="reviews-video-card__label reviews-video-card__label--photo">Фото</span>
+            <!-- без кнопки ▶ и без data-video -->
+          </div>
+  
+        </article>
+
+        <article class="reviews-video-card reviews-video-card--photo">
+          <div class="reviews-video-card__inner">
+            <img src="/images/otziv5.jpg" alt="">
+            <span class="reviews-video-card__label reviews-video-card__label--photo">Фото</span>
+            <!-- без кнопки ▶ и без data-video -->
+          </div>
+        
+        </article>
+
+
+        <article class="reviews-video-card reviews-video-card--photo">
+          <div class="reviews-video-card__inner">
+            <img src="/images/otziv6.jpg" alt="">
+            <span class="reviews-video-card__label reviews-video-card__label--photo">Фото</span>
+            <!-- без кнопки ▶ и без data-video -->
+          </div>
+         
         </article>
       
         <!-- можешь добавить ещё фото/видео по этому же шаблону -->
@@ -638,8 +729,20 @@ document.addEventListener('DOMContentLoaded', () => {
       
     </div>
   
+<div id="reviewsModal" class="modal">
+  <span class="close">&times;</span>
+  <img id="reviewsModalImg" class="modal-content" alt="">
+  <button type="button" class="prev">&#10094;</button>
+  <button type="button" class="next">&#10095;</button>
+</div>
 
+<!-- ВИДЖЕТ -->
+<div class="wa-style-widget" id="waWidget">
+
+  
+  
   </section>
+  
   
   
 
@@ -706,7 +809,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="sb-map">
         <div id="map" style="width:100%;height:420px;"></div>
         <div class="sb-map__legend">
-          <span class="lg lg--metro">Марксистская, выход 5</span>
+        
           
         </div>
         <button id="btn-open-yandex" class="sb-map__btn" type="button">Открыть карту</button>
@@ -825,6 +928,5 @@ document.addEventListener('DOMContentLoaded', () => {
       <p>Телефон: <a href="tel:+79803617809">+7 (977) 414-40-07</a> · Москва</p>
     </div>
   </footer>
-  
 </body>
 </html>
