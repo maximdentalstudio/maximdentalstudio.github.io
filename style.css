@@ -967,54 +967,8 @@ h2 {
 .fab-btn.wa::after{ box-shadow: 0 0 0 0 rgba(37,211,102,.35); }
 .fab-btn.tg::after{ box-shadow: 0 0 0 0 rgba(34,158,217,.35); }
 
-/* ===== ПАНЕЛЬ (только для WhatsApp) ===== */
-.wa-panel{
-  position: absolute;
-  right: 76px; bottom: 0;
-  width: min(380px, 94vw);
-  max-height: min(70vh, 560px);
-  background: #f0ede9;
-  border: 1px solid #e1ddd5;
-  border-radius: 16px;
-  display: none; flex-direction: column;
-  box-shadow: 0 18px 50px rgba(0,0,0,.35);
-  overflow: hidden;
-  animation: panelIn .14s ease-out;
-}
-/* Исправление позиции окна WhatsApp на мобильных */
-@media (max-width: 768px) {
-  .wa-panel {
-    right: 0;              /* прижимаем к правому краю */
-    left: auto;            /* на всякий случай убираем возможный left */
-    width: min(380px, 100vw);
-    max-width: 100vw;      /* не шире экрана */
-    border-radius: 16px 16px 0 0; /* по желанию: верхняя панелька как «карточка» */
-  }
-}
-@media (max-width: 600px) {
-  .wa-panel {
-    position: fixed;
-    left: 10px;
-    right: 10px;
-    bottom: 90px; /* поднимаем над кнопкой */
-    width: auto;
 
-    /* 🔥 вот тут магия высоты */
-    max-height: 45vh;   /* окно занимает ~40–50% экрана */
-    min-height: 28vh;   /* не слишком маленькое */
 
-    border-radius: 18px;
-    overflow-y: auto;
-    background: #fdfdfd;
-
-    /* красивая тень */
-    box-shadow: 0 14px 40px rgba(0,0,0,0.22);
-    z-index: 2147483646;
-  }
-}
-
-.wa-panel.open{ display: flex; }
-@keyframes panelIn{ from{ opacity:0; transform: translateY(6px)} to{ opacity:1; transform: translateY(0)} }
 
 /* Шапка */
 .wa-panel__header{
@@ -1100,11 +1054,55 @@ h2 {
 }
 
 /* Адаптив */
+
+
+/* ===== ПАНЕЛЬ WHATSAPP ===== */
+.wa-panel {
+  position: absolute;
+  right: 76px;
+  bottom: 0;
+  width: min(380px, 94vw);
+  max-height: min(70vh, 560px);
+  background: #f0ede9;
+  border: 1px solid #e1ddd5;
+  border-radius: 16px;
+  display: none;
+  flex-direction: column;
+  box-shadow: 0 18px 50px rgba(0,0,0,.35);
+  overflow: hidden;
+  animation: panelIn .14s ease-out;
+}
+
+.wa-panel.open {
+  display: flex;
+}
+
+/* адаптив — планшеты/телефоны */
+@media (max-width: 600px) {
+  .wa-style-widget {
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .wa-panel {
+    position: fixed;
+    left: 8px;
+    right: 8px;
+    bottom: 78px;     /* над кнопками */
+    width: auto;
+    max-width: 100%;
+    max-height: 45vh;
+    min-height: 28vh;
+    border-radius: 18px;
+    overflow-y: auto;
+    background: #fdfdfd;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.22);
+    z-index: 2147483646;
+  }
+}
 @media (max-width: 480px){
   .wa-panel{ right: 0; bottom: 74px; width: min(96vw, 420px); }
 }
-
-
 
 
 
@@ -1874,12 +1872,7 @@ color: #333333;
     bottom: 16px;
   }
 
-  .wa-panel {
-    right: 0;
-    left: 8px;
-    bottom: 78px;
-    width: auto;
-  }
+
 }
 
 /* -------- 400px (очень узкие телефоны) -------- */
@@ -2735,4 +2728,168 @@ section, div, img {
 /* Нет полосы снизу */
 .reviews::after {
   display: none !important;
+}
+/* ===== БАЗА/СБРОС ТОЛЬКО ДЛЯ ВИДЖЕТА ===== */
+.wa-style-widget,
+.wa-style-widget * {
+  box-sizing: border-box;
+}
+
+/* ===== РАЗМЕЩЕНИЕ ВИДЖЕТА ===== */
+.wa-style-widget {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 2147483647;
+  display: grid;
+  gap: 12px;
+  justify-items: end;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* FAB-кнопки */
+.fab-btn {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 0;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 30px;
+  background: #2a2a2a;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+}
+.fab-btn.wa {
+  background: linear-gradient(135deg, #25d366, #1ebe57);
+}
+.fab-btn.tg {
+  background: linear-gradient(135deg, #229ed9, #1086c8);
+}
+.fab-btn:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+}
+.fab-btn:active {
+  transform: scale(0.98);
+}
+
+/* Пульс */
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.18); }
+  70% { box-shadow: 0 0 0 18px rgba(0, 0, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
+}
+.fab-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  animation: pulse 2.1s infinite;
+}
+.fab-btn.wa::after {
+  box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.35);
+}
+.fab-btn.tg::after {
+  box-shadow: 0 0 0 0 rgba(34, 158, 217, 0.35);
+}
+
+/* ===== ПАНЕЛЬ WHATSAPP ===== */
+.wa-panel {
+  position: fixed;
+  right: 18px;
+  bottom: 96px; /* над кнопками */
+  width: min(380px, 94vw);
+  max-height: min(70vh, 560px);
+  background: #f0ede9;
+  border: 1px solid #e1ddd5;
+  border-radius: 16px;
+  display: none;
+  flex-direction: column;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  animation: panelIn 0.14s ease-out;
+}
+.wa-panel.open {
+  display: flex;
+}
+
+@keyframes panelIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Шапка */
+.wa-panel__header {
+  background: linear-gradient(135deg, #22c35e, #1fa855);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+}
+.hdr-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #ffffff22;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  border: 1px solid #ffffff33;
+  color: #fff;
+}
+.name {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+  color: #fff;
+}
+.name strong {
+  font-size: 14px;
+}
+.name span {
+  font-size: 12px;
+  opacity: 0.9;
+  color: #f9fffb;
+}
+.panel-close {
+  background: transparent;
+  border: 0;
+  color: #ffffffcc;
+  font-size: 20px;
+  cursor: pointer;
+}
+.panel-close:hover {
+  color: #fff;
+}
+
+/* Поиск и чипы, сообщения, подвал — можно оставить твои текущие стили */
+/* ... */
+
+/* Мобилка */
+@media (max-width: 600px) {
+  .wa-panel {
+    left: 10px;
+    right: 10px;
+    bottom: 90px;
+    width: auto;
+    max-height: 45vh;
+    min-height: 28vh;
+    border-radius: 18px;
+    overflow-y: auto;
+    background: #fdfdfd;
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22);
+    z-index: 2147483646;
+  }
 }
