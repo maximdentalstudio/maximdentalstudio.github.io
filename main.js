@@ -44,10 +44,47 @@ function initMap() {
   map.geoObjects.add(route).add(metroPlacemark).add(clinicPlacemark);
   route.model.events.add('requestsuccess',()=> map.setBounds(route.getBounds(), {checkZoomRange:true, zoomMargin:40}) );
 
-  // кнопка «Открыть карту» на самой карте (если есть)
-  document.getElementById('btn-open-yandex')?.addEventListener('click',()=>{
-    window.open(`https://yandex.ru/maps/?rtext=${metroExit.join(',')}~${clinic.join(',')}&rtt=pd`,'_blank');
+  // кнопка «Открыть карту»
+  const yandexBtn = document.getElementById('btn-open-yandex');
+
+  const openYandexRoute = (fromCoords) => {
+    let url;
+
+    if (fromCoords && fromCoords.length === 2) {
+      // есть координаты пользователя
+      url = `https://yandex.ru/maps/?rtext=${fromCoords[0]},${fromCoords[1]}~${clinic.join(',')}&rtt=auto`;
+      // если нужно только пешком — поменяй auto на pd
+      // url = `https://yandex.ru/maps/?rtext=${fromCoords[0]},${fromCoords[1]}~${clinic.join(',')}&rtt=pd`;
+    } else {
+      // нет координат — Яндекс сам попробует определить местоположение
+      url = `https://yandex.ru/maps/?rtext=~${clinic.join(',')}&rtt=auto`;
+    }
+
+    window.open(url, '_blank');
+  };
+
+  yandexBtn?.addEventListener('click', () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const { latitude, longitude } = pos.coords;
+          openYandexRoute([latitude, longitude]);
+        },
+        () => {
+          // отказал в геолокации или ошибка — просто открываем маршрут "от меня"
+          openYandexRoute(null);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 600000
+        }
+      );
+    } else {
+      openYandexRoute(null);
+    }
   });
+
 }
 
 // ====== ВИДЖЕТ WhatsApp/Telegram ======
