@@ -76,7 +76,7 @@ function initMap() {
 // ====== ВИДЖЕТ WhatsApp/Telegram ======
 document.addEventListener('DOMContentLoaded', function(){
 
-  const WHATSAPP_PHONE    = "79803617809";      // без +
+  const WHATSAPP_PHONE    = "9774144007 ";      // без +
   const TELEGRAM_USERNAME = "maxim_tyrtyshnyy";  // без @
 
   const PRESETS = {
