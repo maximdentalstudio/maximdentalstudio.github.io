@@ -2065,6 +2065,7 @@ footer.footer a:hover {
 }
 
 .works-more-btn:active {
+  
   transform: scale(.97);
 }
 /* ====== Мои работы (новый вариант) ====== */
@@ -2860,6 +2861,8 @@ section, div, img {
 }
 
 .ps-name {
+  text-align: left;
+
   margin-right: 15px; /* регулируй: 4px, 6px, 10px и т.д. */
 }
 /* ===== Мои работы: горизонтальная карусель на мобильных ===== */
