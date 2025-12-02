@@ -2089,8 +2089,9 @@ footer.footer a:hover {
 
 .works__head p {
   margin: 0;
-  color: var(--muted);
+  color:  #ff8a00;
   font-size: 0.95rem;
+  margin-bottom: -15px;
 }
 
 .works-grid {
@@ -2653,65 +2654,7 @@ section, div, img {
 .reviews-carousel-wrap::-webkit-scrollbar {
     display: none;              /* Chrome/Safari */
 }
-/* ====== NEW REVIEWS STYLE ====== */
 
-/* ВЕСЬ БЛОК ОТЗЫВОВ */
-.reviews {
-  background: linear-gradient(180deg, #ffffff, #f4f6f8);
-  padding: 60px 0;
-  border-radius: 32px;
-  width: min(1200px, 92%);
-  margin: 40px auto;
-  box-shadow: 0 18px 45px rgba(0,0,0,0.06);
-}
-
-/* Заголовок */
-.reviews h2 {
-  text-align: center;
-  font-size: 32px;
-  font-weight: 900;
-  color: #222;
-  margin-bottom: 28px;
-}
-
-/* Галерея (нижняя часть) */
-.reviews__videos {
-  display: flex;
-  overflow-x: auto;
-  gap: 18px;
-  padding: 10px 6px 20px;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none; /* Firefox */
-}
-
-.reviews__videos::-webkit-scrollbar {
-  display: none; /* Chrome */
-}
-
-/* Карточки */
-.reviews-video-card {
-  flex: 0 0 auto;
-  width: 260px;
-  height: 340px;
-  background: #fff;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 10px 26px rgba(0,0,0,0.08);
-  position: relative;
-  scroll-snap-align: start;
-  transition: 0.25s ease;
-}
-
-.reviews-video-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 14px 36px rgba(0,0,0,0.12);
-}
-
-.reviews-video-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
 
 /* Лейблы "Видео" / "Фото" */
 .reviews-video-card__label {
@@ -2917,4 +2860,186 @@ section, div, img {
 
 .ps-name {
   margin-right: 15px; /* регулируй: 4px, 6px, 10px и т.д. */
+}
+/* ===== Мои работы: горизонтальная карусель на мобильных ===== */
+@media (max-width: 768px) {
+  .works-grid {
+    width: 100%;
+    margin: 0;
+    padding: 0 16px 10px;
+    display: flex;
+    overflow-x: auto;
+    gap: 12px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .work-card {
+    flex: 0 0 82%;           /* ширина карточки ~80% экрана */
+    scroll-snap-align: start;
+  }
+
+  /* показываем ВСЕ 12 работ в карусели */
+  .work-card--extra {
+    display: flex !important;
+  }
+  .works--cases.works--expanded .work-card--extra {
+    display: flex;
+  }
+
+  /* кнопку "Показать ещё" на мобильном скрываем — листаем свайпом */
+  .works-more-btn {
+    display: none;
+  }
+}
+/* ===== Горизонтальная карусель работ — 12 карточек ===== */
+
+.works-grid {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 10px 16px 20px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch; /* плавный свайп */
+}
+
+.work-card {
+  flex: 0 0 300px;       /* ширина одной карточки */
+  scroll-snap-align: start;
+}
+
+/* все extra-карточки показываются */
+.work-card--extra {
+  display: flex !important;
+}
+
+/* убираем кнопку (если она вдруг где-то осталась) */
+.works-more-btn {
+  display: none !important;
+}
+
+/* на мобильных карточки шире, чтобы удобнее листать */
+@media (max-width: 600px) {
+  .work-card {
+    flex: 0 0 110%;
+  }
+}
+/* Убрать линию / скроллбар снизу у карусели */
+.works-grid {
+  scrollbar-width: none;       /* Firefox */
+}
+
+.works-grid::-webkit-scrollbar {
+  display: none;               /* Chrome, Safari */
+}
+/* ====== REVIEWS – современный блок на всю ширину ====== */
+
+#reviews {
+  background: #f3f4f6;
+  padding: clamp(32px, 6vw, 56px) 0;
+}
+
+#reviews .container {
+  width: min(1200px, 92%);
+  margin: 0 auto;
+}
+
+/* Заголовок */
+#reviews .reviews__head {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+#reviews .reviews__head h2 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 900;
+  color: #111827;
+}
+
+/* Лента отзывов (фото / видео) */
+#reviews .reviews__videos {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  padding: 4px 4px 16px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;          /* Firefox */
+}
+
+#reviews .reviews__videos::-webkit-scrollbar {
+  display: none;                  /* Chrome/Safari */
+}
+
+/* Карточка */
+#reviews .reviews-video-card {
+  flex: 0 0 260px;
+  scroll-snap-align: start;
+}
+
+#reviews .reviews-video-card__inner {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #0f172a;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.25);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+#reviews .reviews-video-card__inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#reviews .reviews-video-card__inner:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 60px rgba(15, 23, 42, 0.32);
+}
+
+/* Play-кнопка по центру */
+#reviews .reviews-video-card__play {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(15, 23, 42, 0.9);
+  color: #fff;
+  font-size: 22px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+#reviews .reviews-video-card__play:hover {
+  transform: scale(1.08);
+  background: var(--accent, #ff7a00);
+}
+
+/* Лейбл в углу */
+#reviews .reviews-video-card__label {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #fff;
+ 
+  
+}
+
+/* Мобильный — карточка шире, свайпом листаем */
+@media (max-width: 480px) {
+  #reviews .reviews-video-card {
+    flex: 0 0 78%;
+  }
 }
