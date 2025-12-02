@@ -819,29 +819,57 @@
   
   
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // Тень/бордер при скролле
-      const header = document.querySelector('.site-header');
-      if (header) {
-        const toggle = () => header.classList.toggle('is-scrolled', window.scrollY > 4);
-        toggle();
-        window.addEventListener('scroll', toggle, { passive: true });
-      }
-    
-      // Бургер-меню
-      const nav = document.querySelector('.main-nav');
-      const btn = document.querySelector('.burger');
-      if (nav && btn) {
-        btn.addEventListener('click', () => {
-          btn.classList.toggle('is-open');
-          nav.classList.toggle('is-open');
+  document.addEventListener('DOMContentLoaded', () => {
+    // Тень/бордер при скролле
+    const header = document.querySelector('.site-header');
+    if (header) {
+      const toggle = () => header.classList.toggle('is-scrolled', window.scrollY > 4);
+      toggle();
+      window.addEventListener('scroll', toggle, { passive: true });
+    }
+
+    // Бургер-меню
+    const nav    = document.querySelector('.main-nav');
+    const burger = document.querySelector('.burger');
+    const navList = document.querySelector('.nav-list');
+
+    if (nav && burger) {
+      const closeMenu = () => {
+        burger.classList.remove('is-open');
+        nav.classList.remove('is-open');
+      };
+
+      // Открыть / закрыть по бургеру
+      burger.addEventListener('click', (e) => {
+        e.stopPropagation(); // чтобы клик по бургеру не считался "кликом снаружи"
+        burger.classList.toggle('is-open');
+        nav.classList.toggle('is-open');
+      });
+
+      // Закрыть по клику вне меню и вне бургера
+      document.addEventListener('click', (e) => {
+        const clickInsideNav = nav.contains(e.target);
+        const clickOnBurger  = burger.contains(e.target);
+        if (!clickInsideNav && !clickOnBurger) {
+          closeMenu();
+        }
+      });
+
+      // Закрыть по клику на пункт меню
+      if (navList) {
+        navList.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            closeMenu();
+          });
         });
       }
-    
-      // Fallback для .reveal (на случай, если другой reveal-скрипт не сработал)
-      document.querySelectorAll('.reveal').forEach(el => el.classList.add('in-view'));
-    });
-    </script>
+    }
+
+    // Fallback для .reveal
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in-view'));
+  });
+</script>
+
     <script>
       const slider = document.getElementById('reviewsSlider');
       const leftBtn = document.getElementById('arrowLeft');
