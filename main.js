@@ -322,33 +322,7 @@ document.addEventListener('DOMContentLoaded', function(){
   area.addEventListener('touchend', ()=>{ tx=0; ty=0; if(!raf) raf=requestAnimationFrame(loop); });
 })();
 
-// ====== СТАТУС «ОТКРЫТО/ЗАКРЫТО» + КОПИРОВАНИЕ ТЕЛЕФОНА ======
-(function(){
-  const badge=document.getElementById('open-status');
-  const note=document.getElementById('next-open');
-  if (!badge || !note) return;
 
-  const t2m=t=>{const[h,m]=t.split(':').map(Number);return h*60+m};
-  const dd=[...document.querySelectorAll('.sb-hours__grid dd')].map(el=>el.dataset.hours);
-  const hours={1:dd[0],2:dd[0],3:dd[0],4:dd[0],5:dd[0],6:dd[1],7:dd[2]};
-  const now=new Date(), wd=((now.getDay()+6)%7)+1, slot=hours[wd];
-  let open=false,end=null;
-  if(slot?.includes('-')){const[s,e]=slot.split('-'); const cur=now.getHours()*60+now.getMinutes(); open=cur>=t2m(s)&&cur<=t2m(e); end=e;}
-  badge.textContent=open?'Сейчас открыто':'Сейчас закрыто';
-  badge.classList.toggle('is-open',open); badge.classList.toggle('is-closed',!open);
-  note.textContent=open?`Сегодня до ${end}.`:'Откроемся по графику.';
-
-  const btn=document.getElementById('btn-copy');
-  const tel=document.querySelector('.sb-phone');
-  btn?.addEventListener('click',async()=>{
-    try{
-      await navigator.clipboard.writeText((tel?.textContent||'').replace(/[^\d+]/g,''));
-      btn.textContent='Скопировано ✔'; setTimeout(()=>btn.textContent='Скопировать',1500);
-    }catch{
-      btn.textContent='Ошибка'; setTimeout(()=>btn.textContent='Скопировать',1500);
-    }
-  });
-})();
 // ===== Аккордеон в прайсе: в одной карточке открыт только один details =====
 (function () {
   const cards = document.querySelectorAll('.ps-card');

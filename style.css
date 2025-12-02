@@ -286,7 +286,7 @@ body {
 }
 .ps-card:hover{ transform:translateY(-2px); box-shadow:var(--sh2); }
 .ps-card__title{
-  margin:4px 6px 10px; font-weight:900; color:var(--ink); letter-spacing:-.01em;
+  margin:4px 6px 10px; font-weight:900;color: var(--accent); letter-spacing:-.01em;
   font-size: clamp(16px,1.8vw,20px);
 }
 
@@ -1842,6 +1842,7 @@ color: #333333;
 @media (max-width: 600px) {
   .hero-pro {
     padding-top: 54px;
+    margin-bottom: 38px;
   }
 
   .hero-pro__card {
@@ -2892,4 +2893,28 @@ section, div, img {
     box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22);
     z-index: 2147483646;
   }
+}
+@media (max-width: 400px) {
+  .wa-panel {
+    left: 10px;
+    right: 10px;
+    bottom: 90px;
+    width: auto;
+    max-height: 65vh;
+    min-height: 28vh;
+    border-radius: 18px;
+    overflow-y: auto;
+    background: #fdfdfd;
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22);
+    z-index: 2147483646;
+  }
+}
+.ps-card__title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ps-name {
+  margin-right: 15px; /* регулируй: 4px, 6px, 10px и т.д. */
 }
