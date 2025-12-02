@@ -2071,7 +2071,7 @@ footer.footer a:hover {
 
 .works--cases {
   background: #eaf2f5;
-      padding: clamp(42px, 6vw, 28px) 0;
+     padding: clamp(14px, 6vw, 28px) 0;
 }
 
 .works__head {
