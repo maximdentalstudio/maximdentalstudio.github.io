@@ -73,7 +73,6 @@ function initMap() {
   }
 }
 
-
 // ====== ВИДЖЕТ WhatsApp/Telegram ======
 document.addEventListener('DOMContentLoaded', function(){
 
@@ -337,31 +336,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     
 
-// ===== Показать ещё работы (6 + 6) =====
-(function () {
-  const section   = document.getElementById('works');
-  if (!section) return;
 
-  const btn       = document.getElementById('worksMoreBtn');
-  const extras    = section.querySelectorAll('.work-card--extra');
-  const firstCard = section.querySelector('.work-card');
-
-  if (!btn || !extras.length || !firstCard) return;
-
-  btn.addEventListener('click', () => {
-    const expanded = section.classList.toggle('works--expanded');
-
-    btn.textContent = expanded
-      ? 'Скрыть часть работ'
-      : 'Показать ещё работы';
-
-    // ВСЕГДА после клика возвращаемся к началу первых 6 фото
-    firstCard.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    });
-  });
-})();
 
 // ===== Показать ещё работы (6 + 6) =====
 (function () {
@@ -527,3 +502,31 @@ document.addEventListener('DOMContentLoaded', function(){
     if (e.key === 'ArrowRight')  showNext();
   });
 })();
+// ====== Показать ещё работы ======
+document.addEventListener("DOMContentLoaded", () => {
+  const items = document.querySelectorAll(".work-item");
+  const btn = document.getElementById("loadMoreWorks");
+
+  if (!items.length || !btn) return;
+
+  let shown = 6; // первые 6 видны
+
+  items.forEach((item, i) => {
+    if (i >= shown) item.classList.add("hidden");
+  });
+
+  btn.addEventListener("click", () => {
+    let next = shown + 6;
+
+    items.forEach((item, i) => {
+      if (i < next) item.classList.remove("hidden");
+    });
+
+    shown = next;
+
+    // если всё показано — скрыть кнопку
+    if (shown >= items.length) {
+      btn.style.display = "none";
+    }
+  });
+});
