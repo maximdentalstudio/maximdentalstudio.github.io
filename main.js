@@ -7,7 +7,7 @@ const phoneInput = document.getElementById('phone');
 
 // ====== КАРТА (Яндекс) ======
 (function waitYmaps(){
-  if (window.ymaps && typeof ymaps.ready === 'function') {
+  if (window.ymaps && typeof ymaps.ready === "function") {
     ymaps.ready(initMap);
   } else {
     setTimeout(waitYmaps, 50);
@@ -18,74 +18,61 @@ function initMap() {
   const metroExit = [55.740510, 37.656369]; // Марксистская, выход 5
   const clinic    = [55.738670, 37.659549]; // Клиника
 
-  const map = new ymaps.Map('map', {
+  // --- создаём карту ---
+  const map = new ymaps.Map("map", {
     center: [(metroExit[0] + clinic[0]) / 2, (metroExit[1] + clinic[1]) / 2],
     zoom: 16,
-    controls: ['zoomControl','fullscreenControl'] // кнопки
+    controls: ["zoomControl", "fullscreenControl"]
   }, { suppressMapOpenBlock: true });
 
-  // >>> увеличиваем трекпадом и пальцами
-  map.behaviors.enable('drag');
-  map.behaviors.enable('scrollZoom'); // колесо/трекпад
-  map.behaviors.enable('multiTouch'); // pinch на телефоне
-  map.behaviors.enable('dblClickZoom');
+  // жесты
+  map.behaviors.enable("drag");
+  map.behaviors.enable("scrollZoom");
+  map.behaviors.enable("multiTouch");
+  map.behaviors.enable("dblClickZoom");
 
+  // --- маршрут на сайте ---
   const route = new ymaps.multiRouter.MultiRoute({
     referencePoints: [metroExit, clinic],
-    params: { routingMode: 'pedestrian' }
+    params: { routingMode: "pedestrian" }
   }, {
-    wayPointVisible:false, viaPointVisible:false,
-    routeStrokeColor:"#FF8A00", routeStrokeWidth:6
+    wayPointVisible: false,
+    viaPointVisible: false,
+    routeStrokeColor: "#FF8A00",
+    routeStrokeWidth: 6
   });
 
-  const metroPlacemark  = new ymaps.Placemark(metroExit,{ balloonContent:'🚇 Марксистская, выход 5' },{ preset:'islands#blueCircleIcon' });
-  const clinicPlacemark = new ymaps.Placemark(clinic,{ balloonContent:'🏥 Smile Concept' },{ preset:'islands#redMedicalIcon' });
+  const metroPlacemark = new ymaps.Placemark(
+    metroExit,
+    { balloonContent: "🚇 Марксистская, выход 5" },
+    { preset: "islands#blueCircleIcon" }
+  );
+
+  const clinicPlacemark = new ymaps.Placemark(
+    clinic,
+    { balloonContent: "🏥 Smile Concept" },
+    { preset: "islands#redMedicalIcon" }
+  );
 
   map.geoObjects.add(route).add(metroPlacemark).add(clinicPlacemark);
-  route.model.events.add('requestsuccess',()=> map.setBounds(route.getBounds(), {checkZoomRange:true, zoomMargin:40}) );
 
-  // кнопка «Открыть карту»
-  const yandexBtn = document.getElementById('btn-open-yandex');
-
-  const openYandexRoute = (fromCoords) => {
-    let url;
-
-    if (fromCoords && fromCoords.length === 2) {
-      // есть координаты пользователя
-      url = `https://yandex.ru/maps/?rtext=${fromCoords[0]},${fromCoords[1]}~${clinic.join(',')}&rtt=auto`;
-      // если нужно только пешком — поменяй auto на pd
-      // url = `https://yandex.ru/maps/?rtext=${fromCoords[0]},${fromCoords[1]}~${clinic.join(',')}&rtt=pd`;
-    } else {
-      // нет координат — Яндекс сам попробует определить местоположение
-      url = `https://yandex.ru/maps/?rtext=~${clinic.join(',')}&rtt=auto`;
-    }
-
-    window.open(url, '_blank');
-  };
-
-  yandexBtn?.addEventListener('click', () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          const { latitude, longitude } = pos.coords;
-          openYandexRoute([latitude, longitude]);
-        },
-        () => {
-          // отказал в геолокации или ошибка — просто открываем маршрут "от меня"
-          openYandexRoute(null);
-        },
-        {
-          enableHighAccuracy: true,
-          timeout: 5000,
-          maximumAge: 600000
-        }
-      );
-    } else {
-      openYandexRoute(null);
-    }
+  route.model.events.add("requestsuccess", () => {
+    map.setBounds(route.getBounds(), { checkZoomRange: true, zoomMargin: 40 });
   });
 
+  // ====== КНОПКА "ОТКРЫТЬ КАРТУ" ======
+  const yandexBtn = document.getElementById("btn-open-yandex");
+
+  if (yandexBtn) {
+    // Точка "откуда" ПУСТАЯ -> Яндекс сам подставит "Моё местоположение"
+    const url = `https://yandex.ru/maps/?rtext=~${clinic.join(',')}&rtt=auto`;
+
+    yandexBtn.addEventListener("click", () => {
+      window.open(url, "_blank");
+    });
+  }
 }
+
 
 // ====== ВИДЖЕТ WhatsApp/Telegram ======
 document.addEventListener('DOMContentLoaded', function(){
