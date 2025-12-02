@@ -2440,9 +2440,9 @@ html, body {
 }
 
 * {
-  text-align: center
   max-width: 100vw;
   box-sizing: border-box;
+  text-align: center
 }
 
 /* Убираем вылеты у проблемных блоков */
