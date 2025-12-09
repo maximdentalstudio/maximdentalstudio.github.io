@@ -2994,8 +2994,9 @@ section, div, img {
   border-radius: 24px;
   overflow: hidden;
   background: #0f172a;
-  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.25);
+ 
   transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: none;
 }
 
 #reviews .reviews-video-card__inner img {
@@ -3006,7 +3007,7 @@ section, div, img {
 
 #reviews .reviews-video-card__inner:hover {
   transform: translateY(-4px);
-  box-shadow: 0 22px 60px rgba(15, 23, 42, 0.32);
+ 
 }
 
 /* Play-кнопка по центру */
