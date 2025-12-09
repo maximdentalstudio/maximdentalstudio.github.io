@@ -1898,10 +1898,9 @@ color: #333333;
 /* ====== FOOTER =
 /* ====== FOOTER ====== */
 footer.footer {
-  background: #ffffff;                 /* белый фон */
+     background: #fff7ef;              /* белый фон */
   padding: 28px 0;                     /* вертикальные отступы */
   margin-top: 40px;                    /* отступ сверху */
-  border-top: 1px solid rgba(0,0,0,0.08); /* тонкая линия сверху */
   text-align: center;
   font-size: 1rem;
   color: #333333;
@@ -2230,7 +2229,7 @@ footer.footer a:hover {
 }
 /* ===== ПОЛНОЕ ОФОРМЛЕНИЕ СЕКЦИИ ОТЗЫВОВ (ТЕКСТ + ВИДЕО) ===== */
 #reviews {
-  background: #eef2f7;
+  
   padding: 64px 0;
 }
 
@@ -2945,7 +2944,7 @@ section, div, img {
 /* ====== REVIEWS – современный блок на всю ширину ====== */
 
 #reviews {
-  background: #f3f4f6;
+ 
   padding: clamp(32px, 6vw, 56px) 0;
 }
 
