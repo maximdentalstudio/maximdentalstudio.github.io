@@ -2072,7 +2072,7 @@ footer.footer a:hover {
 /* ====== Мои работы (новый вариант) ====== */
 
 .works--cases {
-  background: #eaf2f5;
+ 
      padding: clamp(14px, 6vw, 28px) 0;
 }
 
@@ -2971,7 +2971,7 @@ section, div, img {
   display: flex;
   gap: 18px;
   overflow-x: auto;
-  padding: 4px 4px 16px;
+  padding: 4px 4px 40px;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;          /* Firefox */
