@@ -261,10 +261,8 @@ body {
 }
 .ps{
   padding: clamp(44px,6vw,92px) 0;
-  background:
-    radial-gradient(920px 420px at 14% -12%, var(--bg2) 0%, transparent 60%),
-    radial-gradient(920px 420px at 92% -16%, var(--bg3) 0%, transparent 60%),
-    linear-gradient(var(--bg1), #fbfdff);
+  background: #FFF5EB;
+
 }
 .ps__head{ width:min(1120px,92%); margin:0 auto 8px; }
 .ps h2{
@@ -408,7 +406,7 @@ body {
 
 /* ====== ABOUT HERO SECTION ====== */
 .about-hero {
-  background: var(--bg-cream);
+ background: #FFFFFF;
   padding: clamp(56px, 8vw, 96px) 0;
   overflow: visible;
 }
@@ -1655,7 +1653,8 @@ color: #333333;
   position:relative;
   overflow:hidden;
   padding: clamp(68px, 8vw, 120px) 0;
-  background: linear-gradient(180deg,#ffffff,#f6fbff);
+  background: #F4F8FF;
+
 }
 .hero-pro__bg{
   position:absolute;
@@ -2944,7 +2943,8 @@ section, div, img {
 /* ====== REVIEWS – современный блок на всю ширину ====== */
 
 #reviews {
- 
+ background: #F4F8FF;
+
   padding: clamp(32px, 6vw, 56px) 0;
 }
 
