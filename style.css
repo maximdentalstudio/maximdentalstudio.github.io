@@ -2945,9 +2945,10 @@ section, div, img {
 /* ====== REVIEWS – современный блок на всю ширину ====== */
 
 #reviews {
- background: #F4F8FF;
-
+  background: #E9F2FF;
+  margin-bottom: 35px;    
   padding: clamp(32px, 6vw, 56px) 0;
+  border-radius: 10px;
 }
 
 #reviews .container {
