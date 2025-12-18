@@ -529,4 +529,41 @@ document.addEventListener("DOMContentLoaded", () => {
       btn.style.display = "none";
     }
   });
-});
+});// ===== WORKS: dots indicator =====
+(() => {
+  const section = document.getElementById('works');
+  if (!section) return;
+
+  const rail = section.querySelector('[data-works-rail]');
+  const dotsWrap = section.querySelector('[data-works-dots]');
+  if (!rail || !dotsWrap) return;
+
+  const cards = [...rail.querySelectorAll('.work-card')];
+  if (cards.length <= 1) return;
+
+  // создаём точки
+  dotsWrap.innerHTML = cards.map((_, i) =>
+    `<span class="works-dot" data-dot="${i}"></span>`
+  ).join('');
+
+  const dots = [...dotsWrap.children];
+
+  function cardStep(){
+    const card = cards[0];
+    const gap = parseFloat(getComputedStyle(rail).gap || 0);
+    return card.getBoundingClientRect().width + gap;
+  }
+
+  function updateDots(){
+    const step = cardStep();
+    const index = Math.round(rail.scrollLeft / step);
+    dots.forEach((dot, i) =>
+      dot.classList.toggle('is-active', i === index)
+    );
+  }
+
+  rail.addEventListener('scroll', updateDots, { passive: true });
+  window.addEventListener('resize', updateDots);
+
+  updateDots();
+})();
