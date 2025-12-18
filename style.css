@@ -2106,19 +2106,16 @@ footer.footer a:hover {
 
 /* карточка работы */
 .work-card {
-  background: #f9fbfd;
-  border-radius: 20px;
-  padding: 14px 14px 16px;
-  box-shadow: 0 14px 32px rgba(2, 8, 23, 0.12);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: none;
+  cursor: pointer;
 }
 
 .work-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 20px 46px rgba(2, 8, 23, 0.18);
+  box-shadow: 0 20px 46px rgba(214, 191, 86, 0.18);
+
 }
 
 .work-card__media {
@@ -3055,4 +3052,107 @@ section, div, img {
   #reviews .reviews-video-card {
     flex: 0 0 78%;
   }
+}@media (max-width: 1024px) {
+  .about-hero__content {
+    text-align: center;
+    align-items: center;
+  }
+}
+/* ABOUT: современный "центр", но не плакат */
+
+
+
+/* не делай всё одинаковым по ширине — дай читабельную колонку */
+#about .about-hero__lead{
+  max-width: 520px;
+}
+
+/* чек-лист: лучше центрировать блок, но текст внутри оставить ровным */
+#about .about-hero__list{
+  list-style:none;
+  padding:0;
+  margin: 20px 0 0;
+
+  width: min(520px, 100%);
+  display:grid;
+  gap: 12px;
+}
+
+/* пункты: выравнивание по левому краю внутри центрированного блока */
+#about .about-hero__list li{
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  justify-content:flex-start;
+  text-align:left;
+
+  font-weight:600;
+  color:#0f172a;
+}
+
+/* галочка */
+#about .about-hero__list li::before{
+  content:"✓";
+  width:22px;
+  height:22px;
+  border-radius:999px;
+  display:grid;
+  place-items:center;
+  flex: 0 0 22px;
+
+  background: rgba(245,158,11,.16);
+  color:#f59e0b;
+  font-weight:900;
+}
+
+/* кнопка: по центру, но без огромного провала */
+
+
+/* на узких — всё по центру ок */
+@media (max-width: 900px){
+  .btn-orange {
+    margin-left: 46px;
+  }
+  #about .about-hero__content{
+    padding-top: 10px;
+  }
+}.about-hero__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-left: 10px; /* Можно уменьшить для более компактного вида */
+}
+
+.btn-orange {
+  margin-top: 20px; /* Уменьшаем отступы от контента */
+  padding: 12px 20px;
+
+}
+
+/* ===== dots indicator ===== */
+.works-dots{
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.works-dot{
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgb(255 152 21 / 63%);
+  transition: all .25s ease;
+}
+
+.works-dot.is-active{
+  width: 18px;
+  background: rgb(255 157 29);
+}
+
+/* мобилка */
+@media (max-width: 720px){
+  .works-dots{ margin-top: 10px; }
 }
