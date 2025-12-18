@@ -438,21 +438,26 @@
       <p class="ps-note">* Финальная стоимость определяется после диагностики.</p>
     </div>
   </section>
-  <section id="works" class="works works--cases">
-    <div class="container">
   
-       <!-- ===== Мои работы ===== -->
-  <section id="works" class="works works--cases">
-    <div class="container">
+  <!-- ===== Мои работы ===== -->
+<section id="works" class="works works--cases">
+  <div class="container">
 
-      <div class="works__head">
-        <h2>Мои работы</h2>
-   
-      </div>
-  
+    <!-- Заголовок -->
+    <div class="works__head">
+      <h2>Мои работы</h2>
+    </div>
 
-      <div class="works-grid">
-        <!-- ПЕРВЫЕ 6 РАБОТ (видны сразу) -->
+    <!-- Карусель -->
+    <div class="works__scroller" data-works-scroller>
+
+      <!-- стрелка влево (desktop) -->
+
+
+      <!-- ЛЕНТА -->
+      <div class="works-grid" data-works-rail>
+
+        <!-- КАРТОЧКА -->
         <article class="work-card">
           <div class="work-card__media">
             <span class="work-pill work-pill--top">до</span>
@@ -561,13 +566,16 @@
           </div>
           <div class="work-card__meta"></div>
         </article>
+
       </div>
 
-      <!-- КНОПКА ПОКАЗАТЬ ЕЩЁ -->
-
+      <!-- ТОЧКИ -->
+      <div class="works-dots" data-works-dots aria-hidden="true"></div>
 
     </div>
-  </section>
+
+  </div>
+</section>
 
   
      
